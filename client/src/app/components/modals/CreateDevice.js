@@ -53,38 +53,42 @@ const CreateDevice = observer(({ show, onHide }) => {
             </Modal.Header>
             <Modal.Body>
                 <Form>
-                    <Dropdown className="mt-2 mb-2">
-                        <Dropdown.Toggle>
-                            {device.selectedType.name || "Выберите тип"}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {device.types.map((type) => (
-                                <Dropdown.Item
-                                    onClick={() => device.setSelectedType(type)}
-                                    key={type.id}
-                                >
-                                    {type.name}
-                                </Dropdown.Item>
-                            ))}
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    <Dropdown className="mt-2 mb-2">
-                        <Dropdown.Toggle>
-                            {device.selectedBrand.name || "Выберите тип"}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {device.brands.map((brand) => (
-                                <Dropdown.Item
-                                    onClick={() =>
-                                        device.setSelectedBrand(brand)
-                                    }
-                                    key={brand.id}
-                                >
-                                    {brand.name}
-                                </Dropdown.Item>
-                            ))}
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <div className="d-flex justify-content-between gap-2">
+                        <Dropdown className="mt-2 mb-2 w-50">
+                            <Dropdown.Toggle className=" w-100">
+                                {device.selectedType.name || "Выберите тип"}
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu className="w-100">
+                                {device.types.map((type) => (
+                                    <Dropdown.Item
+                                        onClick={() =>
+                                            device.setSelectedType(type)
+                                        }
+                                        key={type.id}
+                                    >
+                                        {type.name}
+                                    </Dropdown.Item>
+                                ))}
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        <Dropdown className="mt-2 mb-2 w-50">
+                            <Dropdown.Toggle className="w-100">
+                                {device.selectedBrand.name || "Выберите тип"}
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu className="w-100">
+                                {device.brands.map((brand) => (
+                                    <Dropdown.Item
+                                        onClick={() =>
+                                            device.setSelectedBrand(brand)
+                                        }
+                                        key={brand.id}
+                                    >
+                                        {brand.name}
+                                    </Dropdown.Item>
+                                ))}
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </div>
                     <Form.Control
                         value={name}
                         onChange={(e) => setName(e.target.value)}
@@ -109,7 +113,7 @@ const CreateDevice = observer(({ show, onHide }) => {
                     </Button>
                     {info.map((i) => (
                         <Row className="mt-4" key={i.number}>
-                            <Col md={4}>
+                            <Col md={4} className="mb-2">
                                 <Form.Control
                                     value={i.title}
                                     onChange={(e) =>
@@ -122,7 +126,7 @@ const CreateDevice = observer(({ show, onHide }) => {
                                     placeholder="Введите название свойства"
                                 />
                             </Col>
-                            <Col md={4}>
+                            <Col md={4} className="mb-2">
                                 <Form.Control
                                     value={i.description}
                                     onChange={(e) =>
