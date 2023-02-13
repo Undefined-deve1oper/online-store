@@ -1,16 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { Container } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import BrandBar from "../components/BrandBar";
-import TypeBar from "../components/TypeBar";
 import DeviceList from "../components/DeviceList";
+import Pages from "../components/Pages";
+import TypeBar from "../components/TypeBar";
+import { fetchBrands, fetchDevices, fetchTypes } from "../http/deviceAPI";
 import { Context } from "../../index";
 
 const Shop = observer(() => {
     const { device } = useContext(Context);
-    console.log(device);
+
+    useEffect(() => {
+        fetchTypes().then((data) => device.setTypes(data));
+        fetchBrands().then((data) => device.setBrands(data));
+        fetchDevices(null, null, 1, 2).then((data) => {
+            device.setDevices(data.rows);
+            device.setTotalCount(data.count);
+        });
+    }, []);
 
     return (
         <Container>
@@ -21,6 +31,7 @@ const Shop = observer(() => {
                 <Col md={9}>
                     <BrandBar />
                     <DeviceList />
+                    <Pages />
                 </Col>
             </Row>
         </Container>
